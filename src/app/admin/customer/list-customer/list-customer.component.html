@@ -1,0 +1,57 @@
+<div class="container customer-page">
+
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <h2 class="page-title mb-0">Danh sách khách hàng</h2>
+    <form [formGroup]="search" (ngSubmit)="searchP()">
+      <div class="search-input-wrapper">
+        <input id="sc" type="text" class="form-control search-input" formControlName="nameSearch" maxlength="25" placeholder="Tìm kiếm khách hàng">
+        <button type="submit" class="search-icon-btn"><i class="fa fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="table-responsive-custom">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Mã KH</th>
+            <th>Họ tên</th>
+            <th>Địa chỉ</th>
+            <th>Điện thoại</th>
+            <th>Email</th>
+            <th>Tài khoản</th>
+            <th width="120">Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of customerList">
+            <td>{{ c.idCustomer }}</td>
+            <td class="fw-semibold">{{ c.surname }} {{ c.name }}</td>
+            <td class="text-start">{{ c.address }}</td>
+            <td>{{ c.phone }}</td>
+            <td>{{ c.email }}</td>
+            <td>{{ c.account.userName }}</td>
+            <td class="text-nowrap">
+              <button class="btn btn-sm btn-outline-info me-1" (click)="view(c.idCustomer)"><i class="fa fa-info-circle"></i></button>
+              <button class="btn btn-sm btn-outline-danger" (click)="delete(c.idCustomer,c.name)"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <nav class="mt-4">
+    <ul class="pagination justify-content-center">
+      <li class="page-item"><a class="page-link" (click)="getPage(0)">&laquo;</a></li>
+      <li class="page-item" *ngIf="(indexPagination-1)>0"><a class="page-link" (click)="getPage(indexPagination-2)">&lsaquo;</a></li>
+      <li class="page-item" *ngIf="(indexPagination-1)>0"><a class="page-link" (click)="getPage(indexPagination-2)">{{ indexPagination-1 }}</a></li>
+      <li class="page-item active"><a class="page-link">{{ indexPagination }}</a></li>
+      <li class="page-item" *ngIf="(indexPagination+1)<=totalPagination"><a class="page-link" (click)="getPage(indexPagination)">{{ indexPagination+1 }}</a></li>
+      <li class="page-item" *ngIf="(indexPagination+1)<=totalPagination"><a class="page-link" (click)="getPage(indexPagination)">&rsaquo;</a></li>
+      <li class="page-item"><a class="page-link" (click)="getPage(totalPagination-1)">&raquo;</a></li>
+    </ul>
+  </nav>
+
+</div>

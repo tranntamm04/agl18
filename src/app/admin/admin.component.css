@@ -1,0 +1,29 @@
+.mobile-header {
+  display: none;
+  align-items: center;
+  padding: 10px;
+  background: #1e293b;
+  color: white;
+}
+
+.menu-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  margin-right: 12px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 998;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+  }
+}

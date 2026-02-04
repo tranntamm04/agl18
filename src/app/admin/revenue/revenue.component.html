@@ -1,0 +1,27 @@
+<div class="card p-3 mb-3">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div>
+      <div class="text-muted small">Tổng doanh thu</div>
+      <div class="fw-bold fs-3">{{ total | currency:'VND':'symbol':'1.0-0' }}</div>
+    </div>
+
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+      <label>Từ <input type="date" [(ngModel)]="from"></label>
+      <label>Đến <input type="date" [(ngModel)]="to"></label>
+      <select [(ngModel)]="typeId">
+        <option [ngValue]="null">Tất cả danh mục</option>
+        <option *ngFor="let c of categories" [ngValue]="c.idType">{{ c.nameType }}</option>
+      </select>
+      <button (click)="apply()">Lọc</button>
+    </div>
+  </div>
+</div>
+
+<div class="chart-wrap" style="height:360px; position:relative">
+  <canvas #revChart></canvas>
+  <div *ngIf="noData"
+       style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;color:#666">
+    Không có dữ liệu
+  </div>
+</div>
+s

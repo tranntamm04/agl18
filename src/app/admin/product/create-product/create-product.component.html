@@ -1,0 +1,69 @@
+<div class="container mt-4">
+  <h2 class="text-center">Tạo Mới Sản Phẩm</h2>
+
+  <form [formGroup]="createProduct" (ngSubmit)="create()" novalidate>
+
+    <!-- Dòng 2 cột -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>Tên sản phẩm</label>
+        <input type="text" class="form-control" formControlName="productName" placeholder="Nhập tên sản phẩm">
+        <small class="text-danger" *ngIf="createProduct.get('productName')?.touched && createProduct.get('productName')?.invalid">
+          Tên sản phẩm không được để trống
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Giá</label>
+        <input type="number" class="form-control" formControlName="price" placeholder="Nhập giá">
+        <small class="text-danger" *ngIf="createProduct.get('price')?.touched && createProduct.get('price')?.invalid">
+          Giá không được để trống
+        </small>
+      </div>
+    </div>
+
+    <!-- Dòng 2 cột tiếp -->
+    <div class="form-row">
+     <div class="form-group">
+        <label>Mô tả sản phẩm </label>
+        <textarea type="text" rows="7" class="form-control" formControlName="description" placeholder="Mô tả sản phẩm"></textarea>
+        <small class="text-danger" *ngIf="createProduct.get('description')?.touched && createProduct.get('description')?.invalid" >Không được bỏ trống</small>
+    </div>
+
+      <div class="form-group">
+        <label>Loại sản phẩm</label>
+        <select class="form-select" formControlName="idType">
+          <option value="" disabled selected>-- chọn loại --</option>
+          <option *ngFor="let t of productType" [value]="t.idType">{{ t.nameType }}</option>
+        </select>
+        <small class="text-danger" *ngIf="createProduct.get('idType')?.touched && createProduct.get('idType')?.invalid">
+          Vui lòng chọn loại sản phẩm
+        </small>
+      </div>
+    </div>
+
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Khuyến mãi</label>
+        <select class="form-select" formControlName="idPromotion">
+          <option value="" disabled selected>-- chọn khuyến mãi --</option>
+          <option *ngFor="let p of promotion" [value]="p.idPromotion">{{ p.namePromotion }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Chọn ảnh</label>
+        <input type="file" multiple (change)="onFileSelect($event)">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-3" *ngFor="let img of previewImages">
+        <img [src]="img" class="img-fluid rounded" width="100px">
+      </div>
+    </div>
+      <div class="form-row buttons">
+        <button type="button" class="btn btn-cancel" (click)="cancel()"> Hủy</button>
+        <button type="submit" class="btn btn-submit" [disabled]="!createProduct.valid">Lưu Thay Đổi</button>
+      </div>
+  </form>
+</div>

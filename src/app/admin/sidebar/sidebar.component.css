@@ -1,0 +1,148 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f6f9;
+}
+
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1001;
+  background: #1e293b;
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.sidebar {
+  width: 220px;
+  background: linear-gradient(#1e293b, #0f172a);
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  font-size: 28px;
+  color: #38bdf8;
+}
+
+.brand {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.sidebar-header small {
+  color: #94a3b8;
+}
+
+.close-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+}
+
+.sidebar-menu {
+  padding: 16px 10px;
+  flex: 1;
+}
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  margin-bottom: 6px;
+  color: #cbd5f5;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  font-size: 15px;
+}
+
+.sidebar-menu a i {
+  width: 20px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.sidebar-menu a:hover {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.sidebar-menu a.active {
+  background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(56,189,248,0.4);
+}
+
+.sidebar-footer {
+  padding: 16px;
+}
+
+.sidebar-footer button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #ef4444;
+  color: #fff;
+  transition: 0.25s;
+}
+
+.content {
+  margin-left: 220px;
+  padding: 24px;
+  width: calc(100% - 220px);
+}
+
+@media (max-width: 768px) {
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .close-btn {
+    display: block;
+  }
+
+  .content {
+    margin-left: 0;
+    width: 100%;
+  }
+}

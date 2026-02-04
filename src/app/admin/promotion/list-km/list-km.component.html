@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Quản lý khuyến mãi</h2>
+
+    <button class="btn btn-primary" (click)="openCreate()">
+      <i class="bi bi-plus-lg me-1"></i>Thêm khuyến mãi
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="table-responsive-custom">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Tên</th>
+            <th>Loại</th>
+            <th>Giá trị</th>
+            <th>Thời gian</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (p of promotions; track p.idPromotion) {
+            <tr>
+              <td class="fw-semibold">{{ p.namePromotion }}</td>
+              <td>
+                <span class="badge"
+                      [class.bg-success]="p.typePromotion==='PERCENT'"
+                      [class.bg-info]="p.typePromotion==='MONEY'">
+                  {{ p.typePromotion==='PERCENT' ? '%' : 'VNĐ' }}
+                </span>
+              </td>
+              <td>
+                {{ p.typePromotion==='PERCENT'
+                  ? p.promotionalValue+'%'
+                  : (p.promotionalValue | number:'1.0-0')+' đ' }}
+              </td>
+              <td class="text-muted">{{ p.dateStart }} → {{ p.dateEnd }}</td>
+              <td>
+                <span class="status-pill" [class.active]="getStatus(p)==='Đang áp dụng'">
+                  {{ getStatus(p) }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-outline-warning me-1" (click)="openEdit(p)">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="openDelete(p)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

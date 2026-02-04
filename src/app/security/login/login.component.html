@@ -1,0 +1,62 @@
+<div class="login-page">
+  <div class="login-container">
+    <div class="branding-section">
+      <h1 class="brand-title">Chào mừng trở lại</h1>
+      <p class="brand-description">Đăng nhập để truy cập vào hệ thống và quản lý tài khoản của bạn</p>
+      <div class="logo-wrapper">
+        <img src="assets/apple.jpg" alt="Logo" class="brand-logo" routerLink="#" />
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2 class="form-title">Đăng nhập</h2>
+      <p class="form-subtitle">Nhập thông tin để tiếp tục</p>
+
+      @if (isOpenToast) {
+        <div class="toast-notification">
+          <span>Sai tên đăng nhập hoặc mật khẩu</span>
+          <button type="button" (click)="hideToast()">×</button>
+        </div>
+      }
+
+      <form [formGroup]="formLogin" (ngSubmit)="doSubmit()">
+
+        <div class="form-group">
+          <label class="form-label">Tên đăng nhập *</label>
+          <input type="text" class="form-input" formControlName="userName" placeholder="Nhập tên đăng nhập"
+                 [class.input-error]="(userNameCtrl.touched || isSubmit) && userNameCtrl.invalid" />
+          @if ((userNameCtrl.touched || isSubmit) && userNameCtrl.errors?.['required']) {
+            <div class="error-message">Tên đăng nhập không được để trống</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mật khẩu *</label>
+          <input type="password" class="form-input" formControlName="password" placeholder="Nhập mật khẩu"
+                 [class.input-error]="(passwordCtrl.touched || isSubmit) && passwordCtrl.invalid" />
+          @if ((passwordCtrl.touched || isSubmit) && passwordCtrl.errors?.['required']) {
+            <div class="error-message">Mật khẩu không được để trống</div>
+          }
+        </div>
+
+        <div class="form-options">
+          <label><input type="checkbox" formControlName="rememberMe" /> Ghi nhớ đăng nhập</label>
+          <a routerLink="/register">Tạo tài khoản</a>
+        </div>
+
+        <button type="submit" class="submit-button">Đăng nhập</button>
+      </form>
+      <div class="divider"><span>hoặc</span></div>
+      <div class="oauth-buttons">
+        <a href="http://localhost:8080/oauth2/authorization/google" class="oauth-btn google">Google</a>
+        <a href="http://localhost:8080/oauth2/authorization/facebook" class="oauth-btn facebook">Facebook</a>
+      </div>
+      <div class="forgot-password">
+        <a routerLink="/forgot-password">Quên mật khẩu?</a>
+      </div>
+      <div class="form-footer">
+        <p>Bạn cần hỗ trợ? <a href="#">Liên hệ với chúng tôi</a></p>
+      </div>
+    </div>
+  </div>
+</div>

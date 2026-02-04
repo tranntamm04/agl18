@@ -1,0 +1,141 @@
+<div class="row mt-1"> 
+  <div class="col-lg-12 col-sm-12">
+    <div class="container bg-white mt-3 mb-5" style="border-radius: 2%">
+      <h3 mat-dialog-title class="text-center mt-3">SỬA NHÂN VIÊN</h3>
+      <div class="row mt-3">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+          <form class="row g-3 was-validated" [formGroup]="editEmployee" (ngSubmit)="edit()">
+            <div class="row">
+              <input type="hidden" formControlName="idEmployee">
+
+              <div class="mb-3 col-md-12">
+                <label class="form-label" for="hoten">Họ Tên: <span style="color: red">(*)</span></label>
+                <input type="text" class="form-control" formControlName="fullName" id="hoten"
+                       placeholder="Nhập họ tên" required>
+                <div class="alert alert-danger mt-1 " *ngIf="editEmployee.get('fullName')?.invalid &&
+               editEmployee.get('fullName')?.touched &&
+             editEmployee.get('fullName')?.errors?.['required']">Họ tên không được để trống
+                </div>
+              </div>
+<!--              <div class="mb-3 col-md-6">-->
+<!--                <label for="idE" class="form-label">Mã Nhân Viên: <span-->
+<!--                  style="color: red">(*)</span></label>-->
+<!--                <input type="text" class="form-control" id="idE" formControlName="idEmployee"-->
+<!--                       placeholder="Nhập mã nhân viên"-->
+<!--                       required>-->
+<!--                <div class="alert alert-danger mt-1 " *ngIf="editEmployee.get('idEmployee')?.invalid &&-->
+<!--               editEmployee.get('idEmployee')?.touched &&-->
+<!--             editEmployee.get('idEmployee')?.errors?.['required']">ID Không được để trống-->
+<!--                </div>-->
+<!--                <div class="alert alert-danger mt-1" *ngIf="editEmployee.get('idEmployee')?.invalid &&-->
+<!--               editEmployee.get('idEmployee')?.dirty &&-->
+<!--             editEmployee.get('idEmployee')?.errors?.pattern">ID phải là NV-XXXX(X là số)-->
+<!--                </div>-->
+<!--              </div>-->
+              <div class="mb-3 col-md-6">
+                <label class="form-label" for="email">Email: <span style="color: red">(*)</span></label>
+                <input type="text" class="form-control" formControlName="email" id="email"
+                       placeholder="Nhập email" required>
+                <div class="alert alert-danger mt-1 " *ngIf="editEmployee.get('email')?.invalid &&
+               editEmployee.get('email')?.touched &&
+             editEmployee.get('email')?.errors?.['required']">Email không được để trống
+                </div>
+                <div class="alert alert-danger mt-1" *ngIf="editEmployee.get('email')?.invalid &&
+               editEmployee.get('email')?.dirty &&
+             editEmployee.get('email')?.errors?.['email']">Email không đúng định dạng
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <label class="form-label" for="dateOfBirth">Ngày Sinh: <span style="color: red">(*)</span></label>
+                <input type="date" class="form-control" formControlName="dateOfBirth" id="dateOfBirth"
+                       placeholder="Nhập ngày sinh" required>
+                <div class="alert alert-danger mt-1 " *ngIf="editEmployee.get('dateOfBirth')?.invalid &&
+               editEmployee.get('dateOfBirth')?.touched &&
+             editEmployee.get('dateOfBirth')?.errors?.['required']">Ngày sinh không được để trống
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <label class="form-label" for="dc">Địa Chỉ: <span style="color: red">(*)</span></label>
+                <input type="text" class="form-control" formControlName="address" id="dc"
+                       placeholder="Nhập địa chỉ" required>
+                <div class="alert alert-danger mt-1 " *ngIf="editEmployee.get('address')?.invalid &&
+               editEmployee.get('address')?.touched &&
+             editEmployee.get('address')?.errors?.['required']">Địa chỉ không được để trống
+                </div>
+              </div>
+
+              <div class="mb-3 col-md-6">
+                <label class="form-label" for="sdt">Số Điện Thoại: <span style="color: red">(*)</span></label>
+                <input type="text" class="form-control" formControlName="phone" id="sdt"
+                       placeholder="Nhập số điện thoại" required>
+                <div class="alert alert-danger  mt-1" *ngIf="editEmployee.get('phone')?.invalid && editEmployee.get('phone')?.touched &&
+             editEmployee.get('phone')?.errors?.['required']">Số điện thoại Không được để trống
+                </div>
+                <div class="alert alert-danger  mt-1" *ngIf="editEmployee.get('phone')?.invalid && editEmployee.get('phone')?.dirty &&
+             editEmployee.get('phone')?.errors?.['pattern']">Số điện thoại là 090XXXXXXX (X là số)
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label class="form-label " for="position">Chức Vụ: <span style="color: red">(*)</span></label>
+                <div class="input-group">
+                  <select class="form-control" formControlName="positionId" id="position">
+                    <option value="">Chọn chức vụ</option>
+                    <option *ngFor="let p of positionList"
+                            [ngValue]="p.positionId">{{p.positionName}}</option>
+                  </select>
+                </div>
+                <div class="alert alert-danger mt-1" *ngIf="editEmployee.get('positionId')?.invalid &&
+                 editEmployee.get('positionId')?.touched &&
+             editEmployee.get('positionId')?.errors?.['required']">Chức vụ không được để trống</div>
+              </div>
+              <input type="hidden" formControlName="userName">
+<!--              <div class="mb-3 col-md-6">-->
+<!--                <label class="form-label" for="sdt">Tài Khoản: <span style="color: red">(*)</span></label>-->
+<!--                <input type="text" class="form-control" formControlName="userName" id="us"-->
+<!--                       placeholder="Nhập tài khoản" required>-->
+<!--                <div class="alert alert-danger mt-1 " *ngIf="editEmployee.get('userName')?.invalid &&-->
+<!--               editEmployee.get('userName')?.touched &&-->
+<!--             editEmployee.get('userName')?.errors?.['required']">Tài khoản không được để trống-->
+<!--                </div>-->
+<!--              </div>-->
+              <div class="mb-3 col-lg-6">
+                <label class="form-label" for="pass">Mật Khẩu: <span style="color: red">(*)</span></label>
+                <input type="password" class="form-control" formControlName="password" id="pass"
+                       placeholder="Nhập mật khẩu" required>
+                <div class="alert alert-danger mt-1 " *ngIf="editEmployee.get('password')?.invalid &&
+               editEmployee.get('password')?.touched &&
+             editEmployee.get('password')?.errors?.['required']">Mật khẩu không được để trống
+                </div>
+              </div>
+<!--              <div class="mb-3 col-lg-12">-->
+<!--                <label class="form-label" for="anh">Ảnh: <span style="color: red">(*)</span></label>-->
+<!--                <input type="file" class="form-control" formControlName="avtUrl" id="anh"-->
+<!--                       placeholder="Tải ảnh" required>-->
+<!--                <div class="alert alert-danger mt-1 " *ngIf="editEmployee.get('avtUrl')?.invalid &&-->
+<!--               editEmployee.get('avtUrl')?.touched &&-->
+<!--             editEmployee.get('avtUrl')?.errors?.['required']">Ảnh không được để trống-->
+<!--                </div>-->
+<!--              </div>-->
+              <div class="col-md-3 mb-3"></div>
+              <div class="col-md-3 mb-3">
+                <button type="reset" class="btn btn-danger" mat-button mat-dialog-close routerLink="/listEmployee">Hủy</button>
+              </div>
+              <div class="col-md-3 mb-3">
+                <button type="submit" class="btn btn-success"  cdkFocusInitial [disabled]="!editEmployee.valid">Cập Nhật
+                </button>
+              </div>
+              <div class="col-md-3 mb-3"></div>
+            </div>
+            <div class="row">
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-2"></div>
+      </div>
+    </div>
+  </div>
+</div>

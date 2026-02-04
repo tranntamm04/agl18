@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="text-center">Thông Tin Nhân Viên</h3>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <label class="col-lg-6">Mã Nhân Viên: </label>
+    <label class="col-lg-6">{{employee.idEmployee}}</label>
+  </div>
+  <div class="row">
+    <label class="col-lg-6">Họ Tên: </label>
+    <label class="col-lg-6">{{employee.fullName}}</label>
+  </div> 
+  <div class="row">
+    <label class="col-lg-6">Địa Chỉ: </label>
+    <label class="col-lg-6">{{employee.address}}</label>
+  </div>
+  <div class="row">
+    <label class="col-lg-6">Ngày Sinh: </label>
+    <label class="col-lg-6">{{employee.dateOfBirth}}</label>
+  </div>
+  <div class="row">
+    <label class="col-lg-6">Điện Thoại: </label>
+    <label class="col-lg-6">{{employee.phone}}</label>
+  </div>
+  <div class="row">
+    <label class="col-lg-6">Email: </label>
+    <label class="col-lg-6">{{employee.email}}</label>
+  </div>
+  <div class="row">
+    <label class="col-lg-6">Ngày tạo: </label>
+    <label class="col-lg-6">{{employee.registerDate}}</label>
+  </div>
+  <div class="row">
+    <label class="col-lg-6">Chức Vụ: </label>
+    <label class="col-lg-6" *ngIf="employee.positionId ===1">Quản Lý</label>
+    <label class="col-lg-6" *ngIf="employee.positionId ===2">Nhân Viên</label>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-6"></div>
+    <div class="col-lg-3"></div>
+    <div class="col-lg-3">
+      <button class="btn btn-secondary" type="submit" (click)="close()">Đóng</button>
+    </div>
+  </div>
+</div>

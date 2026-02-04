@@ -1,0 +1,59 @@
+<button class="chat-toggle" (click)="toggleChat()">💬</button>
+
+<div class="chat-box" *ngIf="isOpen">
+  <div class="chat-header">
+    <span>AI Support</span>
+    <button (click)="toggleChat()">✕</button>
+  </div>
+
+  <div class="messages">
+    <div *ngFor="let msg of messages; trackBy: trackByIndex"
+         class="message"
+         [class.u]="msg.from === 'user'"
+         [class.b]="msg.from === 'bot'">
+
+      <div class="bubble">
+
+        <div *ngIf="msg.textLines?.length">
+          <div *ngFor="let line of msg.textLines">
+            {{ line }}
+          </div>
+        </div>
+
+        <div *ngIf="msg.suggests?.length" class="suggest-box">
+          <a
+            *ngFor="let s of msg.suggests"
+            href="javascript:void(0)"
+            (click)="sendSuggestion(s)"
+            class="suggest-link">
+            {{ s }}
+          </a>
+        </div>
+
+        <div *ngIf="msg.products">
+          <div *ngFor="let p of msg.products" class="product-line">
+            <a [routerLink]="['/infoProduct', p.id]">
+              {{ p.name }}
+            </a>
+            <span> - {{ p.price }}</span>
+          </div>
+        </div>
+
+        <small>{{ msg.time }}</small>
+      </div>
+
+    </div>
+
+    <div *ngIf="loading" class="message b">
+      <div class="bubble typing">Đang trả lời...</div>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input [(ngModel)]="userMessage"
+           (keyup.enter)="send()"
+           [disabled]="loading"
+           placeholder="Nhập câu hỏi..." />
+    <button (click)="send()" [disabled]="loading || !userMessage.trim()">➤</button>
+  </div>
+</div>

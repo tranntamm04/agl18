@@ -1,0 +1,44 @@
+<div class="home-container">
+  <ngb-carousel *ngIf="images.length">
+    <ng-template ngbSlide *ngFor="let img of images">
+      <img class="banner-img" [src]="img.src" />
+    </ng-template>
+  </ngb-carousel>
+
+  <div class="tag-list">
+    <button class="tag-item" *ngFor="let t of tag" (click)="searchTag(t)">{{ t }}</button>
+    <a class="view-all" [routerLink]="['/allproduct']">Xem tất cả</a>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card sanPham" *ngFor="let p of productList">
+      <label class="promotion-badge" *ngIf="hasDiscount(p)">{{ p.promotion?.namePromotion }}</label>
+
+      <a class="product-link" [routerLink]="['/infoProduct', p.idProduct]">
+        <img class="product-img" [src]="getImage(p.avt)" />
+        <h3 class="product-name">{{ p.productName }}</h3>
+
+        <p class="product-price">
+          <span class="old-price" *ngIf="hasDiscount(p)">{{ numToString(p.price) }}<sup>đ</sup></span>
+          <span class="new-price">{{ numToString(getDiscountedPrice(p)) }}<sup>đ</sup></span>
+        </p>
+
+        <div class="rating">⭐ {{ p.numOfStar | number:'1.1-1' }} ({{ p.numOfReview }} đánh giá)</div>
+      </a>
+
+      <button class="btn-add-cart"
+        (click)="add(p.idProduct, p.productName, getDiscountedPrice(p), p.avt, p.quantity)"
+        [disabled]="p.quantity <= 0">
+        <i class="fa fa-shopping-cart"></i>
+      </button>
+    </div>
+  </div>
+
+  <nav class="pagination-wrapper" *ngIf="totalPagination > 1">
+    <button (click)="getPage(0)">&laquo;</button>
+    <button *ngIf="indexPagination > 1" (click)="getPage(indexPagination - 2)">&lsaquo;</button>
+    <span class="current">{{ indexPagination }}</span>
+    <button *ngIf="indexPagination < totalPagination" (click)="getPage(indexPagination)">&rsaquo;</button>
+    <button (click)="getPage(totalPagination - 1)">&raquo;</button>
+  </nav>
+</div>

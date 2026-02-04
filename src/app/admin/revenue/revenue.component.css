@@ -1,0 +1,6 @@
+.card { padding: 16px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.summary { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+.cap { font-size: 13px; opacity: .65; }
+.value { font-size: 28px; font-weight: 700; }
+.filters { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+.chart-wrap { height: 360px; }

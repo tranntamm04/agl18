@@ -1,0 +1,111 @@
+<div class="register-page">
+  <div class="register-container">
+    <div class="form-header">
+      <h2 class="form-title">Đăng ký tài khoản</h2>
+    </div>
+
+    <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Tên đăng nhập *</label>
+          <input type="text" class="form-input" formControlName="userName">
+          @if (registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched) {
+            <span class="error">Tên đăng nhập là bắt buộc</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mật khẩu *</label>
+          <input type="password" class="form-input" formControlName="password">
+          @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+            @if (registerForm.get('password')?.errors?.['required']) {
+              <span class="error">Mật khẩu là bắt buộc</span>
+            }
+            @if (registerForm.get('password')?.errors?.['pattern']) {
+              <span class="error">
+                Mật khẩu phải có 6–15 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt
+              </span>
+            }
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Họ</label>
+          <input type="text" class="form-input" formControlName="surname">
+
+          @if (registerForm.get('surname')?.invalid && registerForm.get('surname')?.touched) {
+            <span class="error">Họ là bắt buộc</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tên</label>
+          <input type="text" class="form-input" formControlName="name">
+          @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
+            <span class="error">Tên là bắt buộc</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Số điện thoại</label>
+          <input type="text" class="form-input" formControlName="phone">
+          @if (registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched) {
+            <span class="error">Số điện thoại là bắt buộc</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Giới tính</label>
+          <select formControlName="gender" class="form-input">
+            <option [ngValue]="null" disabled>-- Chọn giới tính --</option>
+            <option [ngValue]="'Nam'">Nam</option>
+            <option [ngValue]="'Nữ'">Nữ</option>
+            <option [ngValue]="'Khác'">Khác</option>
+          </select>
+
+          @if (registerForm.get('gender')?.invalid && registerForm.get('gender')?.touched) {
+            <span class="error">Giới tính là bắt buộc</span>
+          }
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" formControlName="email">
+          @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+            @if (registerForm.get('email')?.errors?.['required']) {
+              <span class="error">Email là bắt buộc</span>
+            }
+            @if (registerForm.get('email')?.errors?.['email']) {
+              <span class="error">Email không đúng định dạng</span>
+            }
+          }
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label">Địa chỉ</label>
+          <input type="text" class="form-input" formControlName="address">
+          @if (registerForm.get('address')?.invalid && registerForm.get('address')?.touched) {
+            <span class="error">Địa chỉ là bắt buộc</span>
+          }
+        </div>
+      </div>
+      <button type="submit" class="submit-button" [disabled]="registerForm.invalid">
+        Đăng ký
+      </button>
+      <div class="form-footer">
+        <p>Đã có tài khoản? <a routerLink="/login" class="login-link">Đăng nhập</a></p>
+      </div>
+    </form>
+
+    @if (message) {
+      <div class="toast-notification success">
+        {{ message }}
+      </div>
+    }
+    @if (error) {
+      <div class="toast-notification error">
+        {{ error }}
+      </div>
+    }
+  </div>
+</div>

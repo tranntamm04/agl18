@@ -1,0 +1,149 @@
+.product-detail {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+}
+.title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.box {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+  min-width: 0;
+}
+
+.row-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.row-item:last-child {
+  border-bottom: none;
+}
+
+.row-item span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.row-item b {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.price {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.row-item.image img {
+  max-width: 100px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.box-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.info {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.info li {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.info li:last-child {
+  border-bottom: none;
+}
+
+.info span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.info b {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+.main-image img {
+  width: 100%;
+  max-width: 300px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.thumbs {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+
+.thumbs img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.thumbs img.active {
+  border-color: #0d6efd;
+}
+.main-image img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.thumbnail-list {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.thumbnail-list img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.thumbnail-list img.active {
+  border-color: #ff5722;
+}

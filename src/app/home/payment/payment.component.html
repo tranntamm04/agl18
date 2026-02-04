@@ -1,0 +1,30 @@
+<div class="payment container">
+  <h3 class="payment-title">Thông tin thanh toán</h3>
+
+  <form class="row payment-form" [formGroup]="payment">
+    <div class="col-lg-7">
+      <div class="card payment-left">
+        <p class="total">Tổng tiền: <strong>{{ numToString(totalPay) }} <sup>đ</sup></strong></p>
+        <label>Tên người nhận</label>
+        <input class="form-control" [value]="account.surname + ' ' + account.name" readonly>
+        <label>SĐT người nhận</label>
+        <input class="form-control" [value]="account.phone" readonly>
+        <label>Địa chỉ giao hàng</label>
+        <input class="form-control" formControlName="shippingAddress" placeholder="Nhập địa chỉ giao hàng">
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card payment-right">
+        <label>Hình thức thanh toán</label>
+        <select class="form-select" formControlName="selectHinhThucTT">
+          <option value="" disabled>Chọn hình thức</option>
+          <option value="COD">Trực tiếp khi nhận hàng (COD)</option>
+          <option value="VNPAY">Chuyển khoản ngân hàng</option>
+        </select>
+        <button class="btn btn-danger w-100" (click)="thanhtoan()" [disabled]="payment.invalid">ĐẶT HÀNG</button>
+        <button class="btn btn-outline-secondary w-100 back-btn" routerLink="/cart">Quay lại giỏ hàng</button>
+      </div>
+    </div>
+  </form>
+</div>

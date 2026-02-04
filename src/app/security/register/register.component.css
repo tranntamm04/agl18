@@ -1,0 +1,126 @@
+.register-page {
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f5f7;
+  padding: 30px;
+}
+
+.register-container {
+  width: 100%;
+  max-width: 650px;
+  background: #fff;
+  padding: 55px;
+}
+
+/* HEADER */
+.form-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.form-title {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.form-subtitle {
+  font-size: 14px;
+  color: #666;
+}
+
+/* GRID */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 20px;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+/* FORM */
+.form-label {
+  font-size: 13px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 24px;
+  background: #222;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* FOOTER */
+.form-footer {
+  margin-top: 16px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.login-link {
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* TOAST */
+.toast-notification {
+  margin-bottom: 16px;
+  padding: 10px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+}
+
+.toast-notification.success {
+  color: green;
+}
+
+.toast-notification.error {
+  color: rgb(255, 0, 0);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .register-container {
+    padding: 32px 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: span 1;
+  }
+}
+
+.submit-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.error{
+  color: red;
+  font-size: 12px;
+}

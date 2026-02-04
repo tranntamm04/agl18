@@ -1,0 +1,74 @@
+<div class="order-wrapper" *ngIf="billList.length !== 0">
+  <h2 class="title">Đơn hàng của tôi</h2>
+
+  <div class="order-card" *ngFor="let b of billList; let i = index">
+    <div class="order-header">
+      <div class="order-id">Đơn #{{ i + 1 }}</div>
+      <div class="order-date">
+        {{ b.dateFounded | date:'HH:mm:ss dd/MM/yyyy' }}
+      </div>
+    </div>
+
+    <div class="order-body">
+
+      <div class="info">
+        <span>Người nhận</span>
+        <b>{{ b.received }}</b>
+      </div>
+
+      <div class="info">
+        <span>SĐT</span>
+        <b>{{ b.phone }}</b>
+      </div>
+
+      <div class="info">
+        <span>Địa chỉ</span>
+        <b>{{ b.address }}</b>
+      </div>
+
+      <div class="info">
+        <span>Thanh toán</span>
+        <b>{{ b.paymentMethods }}</b>
+      </div>
+
+      <div class="info">
+        <span>Tổng tiền</span>
+        <b class="price">
+          {{ numToString(b.totalMoney) }}<sup>đ</sup>
+        </b>
+      </div>
+
+      <div class="info">
+        <span>Trạng thái</span>
+
+        <span class="status processing" *ngIf="b.status === 1">
+          Đang xử lý
+        </span>
+
+        <span class="status success" *ngIf="b.status === 2">
+          Thành công
+        </span>
+      </div>
+
+    </div>
+
+    <!-- ACTION -->
+    <div class="order-actions">
+      <button class="btn-detail" (click)="xem(b.idBill)">
+        Xem chi tiết
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- EMPTY -->
+<div class="empty" *ngIf="billList.length === 0">
+  <i class="fa fa-shopping-cart empty-icon"></i>
+  <h5>Đơn của bạn đang trống</h5>
+  <p>Hãy chọn thêm sản phẩm để mua sắm nhé</p>
+
+  <a routerLink="/" class="btn-home">
+    Quay lại trang chủ
+  </a>
+</div>

@@ -1,0 +1,74 @@
+<div class="container cart-container">
+  <h2 class="cart-title text-center">Giỏ hàng của bạn</h2>
+  <div *ngIf="!hasProduct" class="empty-cart">
+    <i class="fa fa-shopping-cart empty-icon"></i>
+    <h5>Giỏ hàng của bạn đang trống</h5>
+    <p>Hãy chọn thêm sản phẩm để mua sắm nhé</p>
+    <a routerLink="/" class="btn btn-warning text-white">
+      Quay lại trang chủ
+    </a>
+  </div>
+  <ng-container *ngIf="hasProduct">
+  <div class="table-responsive">
+    <table class="table cart-table">
+      <thead>
+        <tr>
+          <th colspan="2" class="select-all-cell">
+            <label class="select-all">
+              <input type="checkbox" [checked]="isAllChecked()" (change)="toggleAll($event)" />
+              <span>Chọn tất cả</span>
+            </label>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let p of product">
+          <td class="text-center align-top">
+            <input type="checkbox" [(ngModel)]="p.checked" (change)="calculateTotal()" />
+          </td>
+
+          <td>
+            <div class="cart-item">
+              <img class="cart-img" [src]="getImage(p.avt)" alt="{{ p.productName }}" />
+
+              <div class="cart-info">
+                <div class="cart-row top">
+                  <span class="product-name">{{ p.productName }}</span>
+                  <i class="fa fa-trash delete-icon" (click)="xoaSP(p.idProduct)"></i>
+                </div>
+
+                <div class="cart-row bottom">
+                  <span class="price">{{ numToString(p.price) }}<sup>đ</sup></span>
+                  <input type="number"
+                         class="form-control quantity-input"
+                         [min]="1"
+                         [max]="stockMap.get(p.idProduct) || 1"
+                         [value]="p.quantity"
+                         (change)="onSoLuongChange(p, $event)" />
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cart-footer">
+    <div class="total">
+      Tổng tiền:
+      <span class="text-danger fw-bold">{{ numToString(grandTotal) }}<sup>đ</sup></span>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-outline-danger" (click)="xoaHet()">
+        <i class="fa fa-trash"></i> Xóa hết
+      </button>
+      <button class="btn btn-warning text-white" [disabled]="grandTotal === 0" (click)="thanhToan()">
+        <i class="fa fa-credit-card"></i> Thanh toán
+      </button>
+    </div>
+  </div>
+  </ng-container>
+</div>

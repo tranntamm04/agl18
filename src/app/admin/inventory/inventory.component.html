@@ -1,0 +1,58 @@
+<div class="container inventory-page">
+
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div>
+      <h2 class="page-title mb-1">Quản lý nhập kho</h2>
+      <span class="text-muted">Danh sách sản phẩm và số lượng tồn kho</span>
+    </div>
+
+    <form class="search-form" [formGroup]="search" (ngSubmit)="searchP()">
+      <div class="search-box">
+        <input id="sc" type="text" class="form-control search-input" formControlName="nameSearch" placeholder="Nhập tên hoặc hãng">
+        <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="table-responsive-custom">
+      <table class="table table-hover align-middle inventory-table">
+        <thead class="table-dark">
+          <tr>
+            <th>Mã sp</th>
+            <th class="text-start ps-4">Tên sản phẩm</th>
+            <th>Ảnh</th>
+            <th>Hãng</th>
+            <th>Tồn kho</th>
+            <th>Nhập thêm</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let p of products">
+            <td>{{ p.idProduct }}</td>
+            <td class="fw-semibold text-start ps-4">{{ p.productName }}</td>
+            <td><img [src]="getImage(p.avt)" class="product-img"></td>
+            <td><span class="badge bg-primary">{{ p.productType.nameType }}</span></td>
+            <td><span class="stock-qty" [class.low]="p.quantity < 5">{{ p.quantity }}</span></td>
+            <td>
+              <div class="import-box">
+                <input type="number" min="1" class="form-control form-control-sm" placeholder="SL" #qty>
+                <button class="btn btn-sm btn-primary" (click)="importStock(p, qty)">Nhập</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <nav *ngIf="totalPagination > 1" class="mt-4">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" *ngFor="let _ of [].constructor(totalPagination); let i = index" [hidden]="i < indexPagination - 4 || i > indexPagination + 2" [class.active]="indexPagination === i + 1">
+        <a class="page-link" (click)="getPage(i)">{{ i + 1 }}</a>
+      </li>
+    </ul>
+  </nav>
+
+</div>

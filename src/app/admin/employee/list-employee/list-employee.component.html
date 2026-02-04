@@ -1,0 +1,68 @@
+<div class="container employee-page">
+
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <h2 class="page-title mb-0">Danh sách nhân viên</h2>
+    <a class="btn btn-primary" routerLink="/createEmployee">Tạo mới nhân viên</a>
+  </div>
+
+  <form class="row g-2 justify-content-center align-items-center mb-4" [formGroup]="search" (ngSubmit)="searchE()">
+    <div class="col-auto"><label for="sc" class="form-label mb-0">Nhập từ:</label></div>
+    <div class="col-12 col-sm-4 col-md-3"><input id="sc" type="text" class="form-control" formControlName="nameSearch" maxlength="25" placeholder="Nhập ID hoặc tên"></div>
+    <div class="col-auto"><label for="vt" class="form-label mb-0">Vị trí:</label></div>
+    <div class="col-12 col-sm-4 col-md-3">
+      <select id="vt" class="form-control" formControlName="typeSearch">
+        <option value="">Chọn vị trí</option>
+        <option *ngFor="let t of positionList" [value]="t.positionName">{{ t.positionName }}</option>
+      </select>
+    </div>
+    <div class="col-auto"><button class="btn btn-primary" type="submit"><i class="fa fa-search me-1"></i>Tìm kiếm</button></div>
+  </form>
+
+  <div class="card">
+    <div class="table-responsive-custom">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Mã NV</th>
+            <th>Họ tên</th>
+            <th>Địa chỉ</th>
+            <th>Ngày sinh</th>
+            <th>Điện thoại</th>
+            <th>Email</th>
+            <th>Chức vụ</th>
+            <th width="140">Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of employeeList">
+            <td>{{ e.idEmployee }}</td>
+            <td class="fw-semibold">{{ e.fullName }}</td>
+            <td class="text-start">{{ e.address }}</td>
+            <td>{{ e.dateOfBirth }}</td>
+            <td>{{ e.phone }}</td>
+            <td>{{ e.email }}</td>
+            <td><span class="badge bg-info">{{ e.position.positionName }}</span></td>
+            <td class="text-nowrap">
+              <button class="btn btn-sm btn-outline-info me-1" (click)="view(e.idEmployee)"><i class="fa fa-info-circle"></i></button>
+              <a class="btn btn-sm btn-outline-warning me-1" [routerLink]="['/editEmployee', e.idEmployee]"><i class="fa fa-wrench"></i></a>
+              <button class="btn btn-sm btn-outline-danger" (click)="delete(e.idEmployee, e.fullName)"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <nav class="mt-4">
+    <ul class="pagination justify-content-center">
+      <li class="page-item"><a class="page-link" (click)="getPage(0)">&laquo;</a></li>
+      <li class="page-item" *ngIf="(indexPagination-1)>0"><a class="page-link" (click)="getPage(indexPagination-2)">&lsaquo;</a></li>
+      <li class="page-item" *ngIf="(indexPagination-1)>0"><a class="page-link" (click)="getPage(indexPagination-2)">{{ indexPagination-1 }}</a></li>
+      <li class="page-item active"><a class="page-link">{{ indexPagination }}</a></li>
+      <li class="page-item" *ngIf="(indexPagination+1)<=totalPagination"><a class="page-link" (click)="getPage(indexPagination)">{{ indexPagination+1 }}</a></li>
+      <li class="page-item" *ngIf="(indexPagination+1)<=totalPagination"><a class="page-link" (click)="getPage(indexPagination)">&rsaquo;</a></li>
+      <li class="page-item"><a class="page-link" (click)="getPage(totalPagination-1)">&raquo;</a></li>
+    </ul>
+  </nav>
+
+</div>

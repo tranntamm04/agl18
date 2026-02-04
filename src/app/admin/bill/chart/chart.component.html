@@ -1,0 +1,63 @@
+<div class="container">
+  <button class="print-btn no-print" (click)="print()">In doanh thu</button>
+  <h2 class="page-title">Dashboard Thống kê</h2>
+  <div class="stats-container">
+    <div class="stat-card">
+      <h4>Tổng đơn hàng</h4>
+      <p>{{ totalOrders }}</p>
+    </div>
+    <div class="stat-card">
+      <h4>Tổng doanh thu</h4>
+      <p>{{ totalRevenue | currency:'VND':'symbol':'1.0-0' }}</p>
+    </div>
+  </div>
+
+  <div class="filter-container no-print">
+    <label>Từ ngày:
+      <input type="date" [(ngModel)]="filterStartDate" />
+    </label>
+    <label>Đến ngày:
+      <input type="date" [(ngModel)]="filterEndDate" />
+    </label>
+    <button (click)="applyFilter()">Lọc</button>
+  </div>
+
+  <div id="print-area">
+    <div class="orders-card">
+      <div class="orders-title">Đơn hàng đã hoàn tất</div>
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Mã đơn</th>
+            <th>Mã KH</th>
+            <th>Tổng tiền</th>
+            <th>Ngày mua</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let b of filteredBillList">
+          <td>{{ $any(b).idBill ?? $any(b).id ?? $any(b).code }}</td>
+          <td>{{ $any(b).customer?.idCustomer ?? $any(b).customerCode ?? '-' }}</td>
+            <td>{{ b.totalMoney | currency:'VND':'symbol':'1.0-0' }}</td>
+            <td>{{ b.dateFounded | date:'yyyy-MM-dd' }}</td>
+          </tr>
+          <tr *ngIf="filteredBillList.length === 0">
+            <td colspan="4" class="empty">Không có đơn trong khoảng lọc</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="chart-container no-print">
+    <div class="chart-card">
+      <div class="chart-title">Doanh thu & Tổng đơn hàng theo ngày</div>
+      <canvas #comboChart></canvas>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Số lượng sản phẩm theo loại</div>
+      <canvas #typePieChart></canvas>
+    </div>
+  </div>
+</div>

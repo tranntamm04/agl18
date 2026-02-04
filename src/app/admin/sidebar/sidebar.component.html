@@ -1,0 +1,77 @@
+<div *ngIf="!isAuthPage && role === 'ROLE_ADMIN'" class="admin-layout">
+  <button class="mobile-menu-btn" (click)="toggleSidebar()">
+    <i class="fa fa-bars"></i>
+  </button>
+
+  <aside class="sidebar" [class.open]="isOpen">
+    <div class="sidebar-header">
+      <div class="header-left">
+        <i class="fa fa-shopping-bag logo-icon"></i>
+        <div>
+          <div class="brand">TTStore</div>
+          <small>Admin</small>
+        </div>
+      </div>
+      <button class="close-btn" (click)="closeSidebar()">✕</button>
+    </div>
+
+    <nav class="sidebar-menu">
+      <a routerLink="/admin/chart" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeSidebar()">
+        <i class="fa fa-home"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a routerLink="/admin/product-type" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="fa fa-tags"></i>
+        <span>Danh mục</span>
+      </a>
+
+      <a routerLink="/admin/listProduct" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="fa fa-th-large"></i>
+        <span>Sản phẩm</span>
+      </a>
+
+      <a routerLink="/admin/listBill" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="fa fa-file-text-o"></i>
+        <span>Đơn hàng</span>
+      </a>
+
+      <a routerLink="/admin/listCustomer" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="fa fa-male"></i>
+        <span>Khách hàng</span>
+      </a>
+
+      <a routerLink="/admin/listEmployee" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="fa fa-users"></i>
+        <span>Nhân viên</span>
+      </a>
+
+      <a routerLink="/admin/listPromotion" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="fa fa-ticket"></i>
+        <span>Khuyến mãi</span>
+      </a>
+
+      <a routerLink="/admin/inventory" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="fa fa-truck"></i>
+        <span>Nhập hàng</span>
+      </a>
+
+      <a routerLink="/admin/rating" routerLinkActive="active" (click)="closeSidebar()">
+        <i class="fa fa-star"></i>
+        <span>Đánh giá</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button (click)="logout()">
+        <i class="fa fa-sign-out"></i>
+        Đăng xuất
+      </button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

@@ -1,0 +1,64 @@
+.dialog-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-row label {
+  width: 110px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+
+.form-row .form-control {
+  flex: 1;
+  height: 36px;
+  font-size: 14px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 576px) {
+  .dialog-title {
+    font-size: 15px;
+  }
+
+  .form-row {
+    flex-direction: row;
+  }
+
+  .form-row label {
+    width: 90px;
+    font-size: 12px;
+  }
+
+  .form-row .form-control {
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .dialog-actions button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}

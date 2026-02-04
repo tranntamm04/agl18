@@ -1,0 +1,55 @@
+<div class="product-detail" *ngIf="product">
+  <h3 class="title">Thông tin sản phẩm</h3>
+  <div class="content-grid">
+    <div class="box">
+      <div class="row-item">
+        <span>Tên sản phẩm</span>
+        <b>{{ product.productName }}</b>
+      </div>
+
+      <div class="row-item">
+        <span>Hãng</span>
+        <b>{{ product.nameType }}</b>
+      </div>
+
+      <div class="row-item">
+        <span>Giá</span>
+        <b class="price">{{ numToString(product.price) }}<sup>đ</sup></b>
+      </div>
+
+      <div class="row-item">
+        <span>Số lượng</span>
+        <b>{{ product.quantity }}</b>
+      </div>
+
+      <div class="row-item">
+        <span>Đã bán</span>
+        <b>{{ product.sold }}</b>
+      </div>
+      <div class="product-images">
+        <div class="main-image">
+          <img [src]="selectedImage" alt="Ảnh sản phẩm">
+        </div>
+        <div class="thumbnail-list">
+          <img *ngFor="let img of getImages(product.avt)" [src]="img" (click)="selectImage(img)"
+            [class.active]="img === selectedImage" alt="Ảnh nhỏ">
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <h5 class="box-title">Thông số kỹ thuật</h5>
+      <ul class="info">
+        <li *ngFor="let item of specs">
+          <span>{{ item.label }}</span>
+          <b>{{ item.value }}</b>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-secondary" (click)="close()">Đóng</button>
+  </div>
+
+</div>

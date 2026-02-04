@@ -1,0 +1,46 @@
+<h2 class="dialog-title">
+  {{ data ? 'Sửa khuyến mãi' : 'Thêm khuyến mãi' }}
+</h2>
+
+<form [formGroup]="form" class="promotion-form">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Tên khuyến mãi</mat-label>
+    <input matInput formControlName="namePromotion">
+  </mat-form-field>
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Loại</mat-label>
+      <mat-select formControlName="typePromotion">
+        <mat-option value="PERCENT">Giảm %</mat-option>
+        <mat-option value="MONEY">Giảm tiền</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Giá trị</mat-label>
+      <input matInput type="number" formControlName="promotionalValue">
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Ngày bắt đầu</mat-label>
+      <input matInput type="date" formControlName="dateStart">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Ngày kết thúc</mat-label>
+      <input matInput type="date" formControlName="dateEnd">
+    </mat-form-field>
+  </div>
+
+  <div class="actions">
+    <button mat-button type="button" (click)="close()">Huỷ</button>
+    <button mat-raised-button color="primary" (click)="save()">
+      {{ data ? 'Cập nhật' : 'Tạo mới' }}
+    </button>
+  </div>
+
+</form>

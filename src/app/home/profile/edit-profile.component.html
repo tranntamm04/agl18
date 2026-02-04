@@ -1,0 +1,42 @@
+<h2 mat-dialog-title class="dialog-title">Sửa thông tin cá nhân</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="profile-form">
+
+    <div class="form-row">
+      <label>Họ</label>
+      <input class="form-control" formControlName="surname" />
+    </div>
+
+    <div class="form-row">
+      <label>Tên</label>
+      <input class="form-control" formControlName="name" />
+    </div>
+
+    <div class="form-row">
+      <label>Giới tính</label>
+      <input class="form-control" formControlName="gender" />
+    </div>
+
+    <div class="form-row">
+      <label>Số điện thoại</label>
+      <input class="form-control" formControlName="phone" />
+    </div>
+
+    <div class="form-row">
+      <label>Email</label>
+      <input class="form-control" formControlName="email" />
+    </div>
+
+    <div class="form-row">
+      <label>Địa chỉ</label>
+      <input class="form-control" formControlName="address" />
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button class="btn btn-outline-secondary" (click)="close()">Hủy</button>
+  <button class="btn btn-warning text-white" (click)="submit()">Lưu</button>
+</mat-dialog-actions>

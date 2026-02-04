@@ -1,0 +1,19 @@
+<div class="order-detail">
+
+  <div class="item" *ngFor="let l of list">
+    <div class="product">
+      <img [src]="getImage(l.product.avt)" alt="{{ l.product.productName }}">
+      <div class="info">
+        <p class="name">{{ l.product.productName }}</p>
+        <p>Số lượng: <b>{{ l.quantity }}</b></p>
+        <p>Đơn giá: <b>{{ numToString(l.price) }}<sup>đ</sup></b></p>
+      </div>
+    </div>
+    <hr />
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-secondary" (click)="close()">Đóng</button>
+  </div>
+
+</div>

@@ -1,0 +1,81 @@
+.container {
+  padding: 20px;
+}
+
+.profile-card {
+  max-width: 460px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 22px 24px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.profile-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: #333;
+}
+
+.profile-row {
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  width: 110px;
+  font-weight: 600;
+  color: #666;
+  font-size: 14px;
+}
+
+.value {
+  flex: 1;
+  color: #222;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 576px) {
+  .profile-card {
+    padding: 16px;
+  }
+
+  .profile-title {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  .profile-row {
+    padding: 8px 0;
+  }
+
+  .label {
+    width: 90px;
+    font-size: 14px;
+  }
+
+  .value {
+    font-size: 14px;
+  }
+
+  .profile-actions button {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}

@@ -1,0 +1,8 @@
+ <h1 mat-dialog-title>Xác Nhận Xóa Sản Phẩm</h1>
+<mat-dialog-content>
+  <p>Bạn Có Muốn Xóa Sản Phẩm: <span class="text-danger">{{name}}</span></p>
+</mat-dialog-content>
+<mat-dialog-actions class="dialog-actions">
+  <button class="btn btn-danger" mat-button (click)="close()">Hủy</button> &nbsp;
+  <button class="btn btn-info" (click)="delete()">Xóa</button>
+</mat-dialog-actions>

@@ -1,0 +1,74 @@
+body{
+  font-family:'Roboto',sans-serif;
+  background:#f4f7fa;
+  color:#333;
+}
+
+h2{font-weight:600; color:#2c3e50;}
+.rating-page{
+  max-width:1111px;
+  margin:20px auto;
+  padding:0 12px;
+}
+
+.card{
+  border:none;
+  border-radius:12px;
+  background:#fff;
+  padding:25px;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+}
+
+.table-responsive-custom{
+  width:100%;
+  overflow-x:auto;
+}
+
+.table{
+  min-width:900px;
+  border-radius:8px;
+}
+
+.table th,
+.table td{
+  padding:12px;
+  text-align:center;
+  vertical-align:middle;
+}
+
+.table-hover tbody tr:hover{
+  background:#f8f9fa;
+}
+
+.star-cell i{
+  margin:0 1px;
+  font-size:0.9rem;
+}
+
+.comment-cell{
+  max-width:260px;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.action-cell button{
+  min-width:60px;
+}
+
+.badge{
+  padding:6px 12px;
+  font-size:.8rem;
+  border-radius:20px;
+}
+
+@media(max-width:768px){
+  .card{
+    padding:15px;
+  }
+
+  .page-title{
+    font-size:1.3rem;
+  }
+}

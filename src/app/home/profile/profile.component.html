@@ -1,0 +1,48 @@
+<div class="container">
+  @if (profile; as p) {
+    <div class="profile-card">
+      <h2 class="profile-title">Thông tin cá nhân</h2>
+
+      <div class="profile-row">
+        <span class="label">Họ</span>
+        <span class="value">{{ p.surname }}</span>
+      </div>
+
+      <div class="profile-row">
+        <span class="label">Tên</span>
+        <span class="value">{{ p.name }}</span>
+      </div>
+
+      <div class="profile-row">
+        <span class="label">Giới tính</span>
+        <span class="value">{{ p.gender }}</span>
+      </div>
+
+      <div class="profile-row">
+        <span class="label">Điện thoại</span>
+        <span class="value">{{ p.phone }}</span>
+      </div>
+
+      <div class="profile-row">
+        <span class="label">Email</span>
+        <span class="value">{{ p.email }}</span>
+      </div>
+
+      <div class="profile-row">
+        <span class="label">Địa chỉ</span>
+        <span class="value">{{ p.address }}</span>
+      </div>
+
+      <div class="profile-actions">
+        <button class="btn btn-warning text-white" (click)="openEdit()">
+          Sửa thông tin
+        </button>
+        <button class="btn btn-outline-warning" routerLink="/changePass">
+          Đổi mật khẩu
+        </button>
+      </div>
+    </div>
+  } @else {
+    <p>Đang tải thông tin...</p>
+  }
+</div>

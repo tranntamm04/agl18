@@ -1,0 +1,21 @@
+ :host {
+  display: block;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px;
+}
+
+mat-dialog-content {
+  padding: 16px 24px;
+}
+
+h1 {
+  margin: 0;
+  padding: 16px 24px;
+  font-size: 20px;
+  font-weight: 600;
+}
