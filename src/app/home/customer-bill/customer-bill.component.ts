@@ -32,7 +32,7 @@ export class CustomerBillComponent implements OnInit {
 
     this.customerService.getCustomerUser(username).subscribe(customer => {
       this.billService.getALLBill(customer.idCustomer).subscribe(bills => {
-        this.billList = bills;
+        this.billList = bills.slice().reverse();
       });
     });
   }

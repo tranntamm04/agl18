@@ -47,13 +47,12 @@ export class InfoProductComponent implements OnInit {
     numOfReview: 0,
     promotion: null
   };
-  
+
   specs: { label: string; value: string }[] = [];
   relatedProducts: ProductDTO[] = [];
   listBl: Rating[] = [];
   filteredComments: Rating[] = [];
-  finalPrice = 0;
-  selectedImage!: string
+  selectedImage!: string;
 
   filters: { label: string; value: StarFilter }[] = [
     { label: 'Tất cả', value: 'ALL' },
@@ -71,7 +70,6 @@ export class InfoProductComponent implements OnInit {
   accountCustomer!: AccountCustomer;
 
   id!: number;
-  totalItem = 0;
   name = '';
 
   constructor(
@@ -84,14 +82,11 @@ export class InfoProductComponent implements OnInit {
     private customerService: CustomerService,
     private title: Title,
     private ratingService: RatingService
-  ){}
+  ) {}
 
   ngOnInit(): void {
     this.title.setTitle('Chi tiết sản phẩm');
-
     this.name = this.loginService.username;
-    this.totalItem = this.cartService.getSoLuongGioHang();
-    
     this.createE = new FormGroup({
       numOfStar: new FormControl<number | null>(null),
       comment: new FormControl<string>('', { nonNullable: true }),
@@ -99,64 +94,87 @@ export class InfoProductComponent implements OnInit {
 
     this.route.paramMap.subscribe(params => {
       this.id = Number(params.get('id'));
-
-      this.route.paramMap.subscribe(params => {
-      this.id = Number(params.get('id'));
       this.loadProduct(this.id);
-    });
-    
-    this.productService.getAllBinhLuan(this.id).subscribe((data) => {
-      this.listBl = data;
-    });
 
+      this.productService.getAllBinhLuan(this.id).subscribe(data => {
+        this.listBl = data;
+        this.filteredComments = data;
+      });
     });
 
     if (this.name) {
-      this.customerService.getCustomerUser(this.name)
-        .subscribe(data => this.accountCustomer = data);
+      this.customerService
+        .getCustomerUser(this.name)
+        .subscribe(data => (this.accountCustomer = data));
     }
   }
 
   loadProduct(id: number): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    this.productService.getProductWithPromotion(id).subscribe(promoData => {
-      this.product = promoData;
-      this.finalPrice = this.getDiscountedPrice(promoData);
-      this.parseDescription(promoData.description);
 
-      this.productService.getProductById(id).subscribe(fullData => {
-        this.product.nameType = fullData.nameType;
+    this.productService.getProductWithPromotion(id).subscribe(p => {
+      this.product = p;
+      this.parseDescription(p.description);
 
-        if (fullData.nameType) {
-          this.productService
-            .getByCategoryPublic(fullData.nameType)
-            .subscribe(list => {
-              this.relatedProducts = list
-                .filter(p => p.idProduct !== id)
-                .slice(0, 8);
-            });
-        }
-      });
-    });
-
-    this.productService.getAllBinhLuan(id).subscribe(data => {
-      this.listBl = data;
-      this.filteredComments = data;
+      const typeId = p.productType?.idType;
+      if (typeId) {
+        this.productService.getByTypeId(typeId).subscribe(list => {
+          this.relatedProducts = list
+            .filter(x => x.idProduct !== id)
+            .slice(0, 8);
+        });
+      }
     });
   }
 
+  hasPromotion(p: any): boolean {
+    return !!p?.promotion;
+  }
 
-  filterByStar(value: StarFilter): void {
-    this.selectedStar = value;
+  hasDiscount(p: any): boolean {
+    return !!p?.promotion && p.promotion.promotionalValue > 0;
+  }
 
-    if (value === 'ALL') {
-      this.filteredComments = this.listBl;
+  getGiagiam(p: any): number {
+    if (!p.promotion) return p.price;
+    const promo = p.promotion;
+    if (promo.typePromotion === 'PERCENT') {
+      return Math.round(p.price * (1 - promo.promotionalValue / 100) - 1000);
+    }
+    if (promo.typePromotion === 'MONEY') {
+      return Math.max(p.price - promo.promotionalValue, 0);
+    }
+    return p.price;
+  }
+  
+  add(): void {
+    if (!this.loginService.isLoggedIn) {
+      this.alertService.showMessageWarning('Vui lòng đăng nhập để thêm vào giỏ hàng');
+      this.router.navigate(['/login']);
       return;
     }
 
-    this.filteredComments = this.listBl.filter(
-      c => c.numberOfStar === value
+    const success = this.cartService.addToGioHang(
+      this.product.idProduct,
+      this.product.productName,
+      this.getGiagiam(this.product),
+      this.product.avt,
+      this.product.quantity
     );
+
+    if (!success) {
+      this.alertService.showMessageWarning('Số lượng sản phẩm đã đạt tối đa tồn kho');
+      return;
+    }
+    this.alertService.showAlertSuccess('Thêm sản phẩm thành công');
+  }
+
+  filterByStar(value: StarFilter): void {
+    this.selectedStar = value;
+    this.filteredComments =
+      value === 'ALL'
+        ? this.listBl
+        : this.listBl.filter(c => c.numberOfStar === value);
   }
 
   parseDescription(description: string): void {
@@ -175,94 +193,31 @@ export class InfoProductComponent implements OnInit {
           value: line.substring(index + 1).trim()
         };
       })
-      .filter(
-        (item): item is { label: string; value: string } => item !== null
-      );
+      .filter(Boolean) as { label: string; value: string }[];
   }
 
   numToString(num?: number | null): string {
-    if (num === null || num === undefined) {
-      return '0';
-    }
-    return num.toLocaleString('vi-VN');
+    return num ? num.toLocaleString('vi-VN') : '0';
   }
 
-
-  getDiscountedPrice(p: any): number {
-    if (!this.hasDiscount(p)) {
-      return p.price;
-    }
-
-    const promo = p.promotion;
-
-    if (promo.typePromotion === 'PERCENT') {
-      return Math.round(p.price * (1 - promo.promotionalValue / 100));
-    }
-
-    if (promo.typePromotion === 'MONEY') {
-      return Math.max(p.price - promo.promotionalValue, 0);
-    }
-
-    return p.price;
+  getImage(avt?: string | null): string {
+    if (!avt) return '/assets/img/17.jpg';
+    const base = 'https://res.cloudinary.com/dk9ostjz4/image/upload/';
+    return base + avt.split(';')[0];
   }
 
-  hasPromotion(p: any): boolean {
-    return !!p?.promotion;
+  getImages(avt?: string | null): string[] {
+    if (!avt) return [];
+    const base = 'https://res.cloudinary.com/dk9ostjz4/image/upload/';
+    return avt.split(';').filter(Boolean).map(id => base + id);
   }
 
-  add(): void {
-    if (!this.loginService.isLoggedIn) {
-      this.alertService.showMessageWarning('Vui lòng đăng nhập để thêm vào giỏ hàng');
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    const success = this.cartService.addToGioHang(
-      this.product.idProduct,
-      this.product.productName,
-      this.getDiscountedPrice(this.product),
-      this.product.avt,
-      this.product.quantity
-    );
-
-    if (!success) {
-      this.alertService.showMessageWarning('Số lượng sản phẩm đã đạt tối đa tồn kho');
-      return;
-    }
-
-    this.alertService.showAlertSuccess('Thêm sản phẩm thành công');
-    this.totalItem = this.cartService.getSoLuongGioHang();
-  }
-
-  createRating() {
-    if (this.createE.value.numOfStar < 1) {
-      this.alertService.showMessageWarning('Bạn chưa đánh giá!');
-      return;
-    }
-    if (this.createE.value.comment === '') {
-      this.alertService.showMessageWarning('Bạn chưa bình luận!');
-      return;
-    }
-    if (this.name === '') {
-      this.alertService.showMessageWarning('Bạn chưa đăng nhập!');
-      return;
-    }
-    this.rating = new RatingDTO(
-      this.createE.value.numOfStar,
-      this.createE.value.comment,
-      this.product.idProduct,
-      this.accountCustomer.idCustomer
-    );
-    this.ratingService.createRating(this.rating).subscribe(() => {
-      this.alertService.showAlertSuccess('Cảm ơn bạn đã đánh giá!');
-      this.ngOnInit();
-    });
+  selectImage(img: string) {
+    this.selectedImage = img;
   }
 
   getStarCount(star: number): number {
-    return this.listBl.filter(
-      (c: Rating) => c.numberOfStar === star
-    ).length;
+    return this.listBl.filter(c => c.numberOfStar === star).length;
   }
 
   getStarPercent(star: number): number {
@@ -270,74 +225,37 @@ export class InfoProductComponent implements OnInit {
     return (this.getStarCount(star) / this.listBl.length) * 100;
   }
 
-  getImage(avt: string | null | undefined): string {
-    if (!avt) {
-      return '/assets/img/17.jpg';
-    }
-    const base = 'https://res.cloudinary.com/dk9ostjz4/image/upload/';
-    return avt.split(';').map(id => base + id)[0];
-  }
-
-  getImages(avt: string | null | undefined): string[] {
-    if (!avt) return [];
-    const base = 'https://res.cloudinary.com/dk9ostjz4/image/upload/';
-    return avt
-      .split(';')
-      .filter(x => x)
-      .map(id => base + id);
-  }
-
-  selectImage(img: string) {
-    this.selectedImage = img;
-  }
-
-  hasDiscount(p: any): boolean {
-    if (!p?.promotion) return false;
-
-    const promo = p.promotion;
-
-    if (promo.typePromotion === 'PERCENT') {
-      return promo.promotionalValue > 0;
+  createRating() {
+    if (!this.createE.value.numOfStar || !this.createE.value.comment || !this.name) {
+      this.alertService.showMessageWarning('Vui lòng nhập đầy đủ thông tin');
+      return;
     }
 
-    if (promo.typePromotion === 'MONEY') {
-      return promo.promotionalValue > 0;
-    }
+    this.rating = new RatingDTO(
+      this.createE.value.numOfStar,
+      this.createE.value.comment,
+      this.product.idProduct,
+      this.accountCustomer.idCustomer
+    );
 
-    return false;
+    this.ratingService.createRating(this.rating).subscribe(() => {
+      this.alertService.showAlertSuccess('Cảm ơn bạn đã đánh giá!');
+      this.ngOnInit();
+    });
   }
 
   getTimeAgo(date: string | Date): string {
-    const past = new Date(date).getTime();
-    const now = new Date().getTime();
-    const diff = Math.floor((now - past) / 1000);
-
-    if (diff < 60) {
-      return `${diff} giây trước`;
-    }
-
-    const minutes = Math.floor(diff / 60);
-    if (minutes < 60) {
-      return `${minutes} phút trước`;
-    }
-
-    const hours = Math.floor(minutes / 60);
-    if (hours < 24) {
-      return `${hours} giờ trước`;
-    }
-
-    const days = Math.floor(hours / 24);
-    if (days < 30) {
-      return `${days} ngày trước`;
-    }
-
-    const months = Math.floor(days / 30);
-    if (months < 12) {
-      return `${months} tháng trước`;
-    }
-
-    const years = Math.floor(months / 12);
-    return `${years} năm trước`;
+    const diff = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
+    if (diff < 60) return `${diff} giây trước`;
+    const m = Math.floor(diff / 60);
+    if (m < 60) return `${m} phút trước`;
+    const h = Math.floor(m / 60);
+    if (h < 24) return `${h} giờ trước`;
+    const d = Math.floor(h / 24);
+    if (d < 30) return `${d} ngày trước`;
+    const mo = Math.floor(d / 30);
+    if (mo < 12) return `${mo} tháng trước`;
+    return `${Math.floor(mo / 12)} năm trước`;
   }
-
+  
 }

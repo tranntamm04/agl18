@@ -13,21 +13,20 @@
   <div class="product-grid">
     <div class="product-card sanPham" *ngFor="let p of productList">
       <label class="promotion-badge" *ngIf="hasDiscount(p)">{{ p.promotion?.namePromotion }}</label>
-
       <a class="product-link" [routerLink]="['/infoProduct', p.idProduct]">
         <img class="product-img" [src]="getImage(p.avt)" />
         <h3 class="product-name">{{ p.productName }}</h3>
 
         <p class="product-price">
           <span class="old-price" *ngIf="hasDiscount(p)">{{ numToString(p.price) }}<sup>đ</sup></span>
-          <span class="new-price">{{ numToString(getDiscountedPrice(p)) }}<sup>đ</sup></span>
+          <span class="new-price">{{ numToString(getGiagiam(p)) }}<sup>đ</sup></span>
         </p>
 
         <div class="rating">⭐ {{ p.numOfStar | number:'1.1-1' }} ({{ p.numOfReview }} đánh giá)</div>
       </a>
 
       <button class="btn-add-cart"
-        (click)="add(p.idProduct, p.productName, getDiscountedPrice(p), p.avt, p.quantity)"
+        (click)="add(p.idProduct, p.productName, getGiagiam(p), p.avt, p.quantity)"
         [disabled]="p.quantity <= 0">
         <i class="fa fa-shopping-cart"></i>
       </button>

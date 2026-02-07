@@ -15,7 +15,7 @@
       <table class="table table-bordered table-hover align-middle">
         <thead class="table-dark">
           <tr>
-            <th>Mã đơn</th>
+            <th>Đơn</th>
             <th>Mã KH</th>
             <th>Họ tên</th>
             <th>SDT</th>
@@ -36,7 +36,7 @@
             <td>{{ p.dateFounded | date:'HH:mm:ss dd/MM/yyyy' }}</td>
             <td>{{ p.paymentMethods }}</td>
             <td>
-              <span *ngIf="p.status===1" class="status-pill status-wait">Đang chờ duyệt</span>
+              <span *ngIf="p.status===1" class="status-pill status-wait">Chờ duyệt</span>
               <span *ngIf="p.status===2" class="status-pill status-success">Thành công</span>
             </td>
             <td class="text-nowrap">

@@ -47,8 +47,10 @@
       <div class="form-group">
         <label>Khuyến mãi</label>
         <select class="form-select" formControlName="idPromotion">
-          <option value="" disabled selected>-- chọn khuyến mãi --</option>
-          <option *ngFor="let p of promotion" [value]="p.idPromotion">{{ p.namePromotion }}</option>
+          <option [ngValue]="null">-- Không khuyến mãi --</option>
+          <option *ngFor="let p of promotion" [ngValue]="p.idPromotion">
+            {{ p.namePromotion }}
+          </option>
         </select>
       </div>
       <div class="form-group">

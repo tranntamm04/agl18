@@ -44,7 +44,7 @@ export class CreateProductComponent implements OnInit {
       productName: new FormControl('', [Validators.minLength(4), Validators.required]),
       price: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      idPromotion: new FormControl('', Validators.required),
+      idPromotion: new FormControl(null),
       idType: new FormControl('', Validators.required),
       avt: new FormControl('')
     });
@@ -85,7 +85,7 @@ export class CreateProductComponent implements OnInit {
       price: Number(v.price),
       quantity: 0,
       idType: Number(v.idType),
-      idPromotion: Number(v.idPromotion),
+      idPromotion: v.idPromotion !== null ? Number(v.idPromotion) : null,
       avt: this.images.join(';')
     };
 

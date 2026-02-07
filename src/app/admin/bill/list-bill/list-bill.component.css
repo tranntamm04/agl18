@@ -1,95 +1,22 @@
-.order-page {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 12px;
-}
+.order-page { max-width:1200px; margin:20px auto; padding:0 12px; }
+.page-title { font-weight:600; color:#2c3e50; }
+.search-input-wrapper { position:relative; min-width:260px; }
+.search-input { padding-right:42px; border-radius:8px; }
+.search-icon-btn { position:absolute; top:50%; right:10px; transform:translateY(-50%); border:none; background:transparent; color:#6c757d; }
+.search-icon-btn:hover { color:#0d6efd; }
+.card { border:none; border-radius:12px; background:#fff; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,.1); font-size:13px; }
+.table-responsive-custom { width:100%; overflow-x:auto; }
+.table { width:100%; table-layout:auto; }
+.table th { white-space:nowrap; text-align: center; }
+.table td { padding:10px; text-align:center; vertical-align:middle; white-space:normal; word-break:break-word; }
+.table td.text-nowrap { white-space:nowrap; }
+.table-hover tbody tr:hover { background:#f8f9fa; }
+.status-pill { display:inline-block; padding:6px 14px; border-radius:20px; font-size:.85rem; font-weight:500; white-space:nowrap; }
+.status-wait { background:#fff3cd; color:#664d03; }
+.status-success { background:#d1e7dd; color:#0f5132; }
 
-.page-title {
-  font-weight: 600;
-  color: #2c3e50;
-}
-
-/* Search */
-.search-input-wrapper {
-  position: relative;
-  min-width: 260px;
-}
-
-.search-input {
-  padding-right: 42px;
-  border-radius: 8px;
-}
-
-.search-icon-btn {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  border: none;
-  background: transparent;
-  color: #6c757d;
-}
-
-.search-icon-btn:hover {
-  color: #0d6efd;
-}
-
-/* Card */
-.card {
-  border: none;
-  border-radius: 12px;
-  background: #fff;
-  padding: 25px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Table */
-.table-responsive-custom {
-  width: 100%;
-  overflow-x: auto;
-}
-
-.table {
-  min-width: 1200px;
-}
-
-.table th,
-.table td {
-  padding: 12px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.table-hover tbody tr:hover {
-  background: #f8f9fa;
-}
-
-/* Status */
-.status-pill {
-  display: inline-block;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.status-wait {
-  background: #fff3cd;
-  color: #664d03;
-}
-
-.status-success {
-  background: #d1e7dd;
-  color: #0f5132;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .card {
-    padding: 15px;
-  }
-
-  .page-title {
-    font-size: 1.4rem;
-  }
+@media (max-width:768px) {
+.card { padding:15px; }
+.page-title { font-size:1.4rem; }
+.table { font-size:12px; }
 }

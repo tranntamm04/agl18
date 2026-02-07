@@ -19,7 +19,7 @@
                 {{ numToString(product.price) }} ₫
               </span>
               <span class="price-sale">
-                {{ numToString(finalPrice) }} ₫
+                {{ numToString(getGiagiam(product)) }} ₫
               </span>
             </div>
 
@@ -171,9 +171,9 @@
   </div>
 
   <div class="related-section">
-    <h3>Có thể bạn sẽ thích ({{ product.nameType || '—' }})</h3>
+    <h3>Có thể bạn sẽ thích</h3>
     <div class="related-grid">
-      @for (p of relatedProducts; track p.idProduct) {
+      @for (p of relatedProducts.slice(0,6); track p.idProduct) {
         <div class="related-item">
           <label *ngIf="hasDiscount(p)" class="promotion-badge">
             Giảm giá
@@ -193,7 +193,7 @@
                 {{ numToString(p.price) }}đ
               </div>
               <div class="price-giam">
-                {{ numToString(getDiscountedPrice(p)) }}đ
+                {{ numToString(getGiagiam(p)) }}đ
               </div>
             </ng-container>
 
