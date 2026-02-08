@@ -18,24 +18,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./chart.component.css'],
 })
 export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
-  // dữ liệu
   billList: Bill[] = [];
   filteredBillList: Bill[] = [];
   products: Product[] = [];
 
-  // KPI
-  totalOrders = 0;
-  totalRevenue = 0;
-
-  // filter
+  totalOrders: number = 0;
+  completedOrders: number = 0;
+  totalRevenue: number = 0;
   filterStartDate = '';
   filterEndDate = '';
 
-  // canvas
   @ViewChild('comboChart') comboChartRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('typePieChart') typePieChartRef!: ElementRef<HTMLCanvasElement>;
 
-  // chart instance
   private comboChart?: Chart;
   private typePieChart?: Chart;
 
@@ -45,9 +40,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     private productService: ProductService
   ) {}
 
-  ngOnInit(): void {
-    this.titleService.setTitle('Thống kê');
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     // Khởi tạo chart rỗng trước
@@ -56,7 +49,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     // Tải dữ liệu rồi cập nhật chart
     this.billService.getAll().subscribe((res: any) => {
       this.billList = res?.content ?? res ?? [];
-      this.filteredBillList = [...this.billList];
+      this.filteredBillList = this.billList.filter(b => b.status === 2);
       this.recomputeKPI();
       this.updateComboChart();
     });
@@ -72,39 +65,40 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     this.typePieChart?.destroy();
   }
   print(): void {
-  window.print();
-}
+    window.print();
+  }
 
-
-  // ====== Filter theo ngày ======
   applyFilter(): void {
     if (this.filterStartDate && this.filterEndDate) {
       const start = new Date(this.filterStartDate);
       const end = new Date(this.filterEndDate);
-      // chuẩn hóa end = 23:59:59 để bao trọn ngày
       end.setHours(23, 59, 59, 999);
 
       this.filteredBillList = this.billList.filter(b => {
+        if (b.status !== 2) return false;
+
         const d = new Date(b.dateFounded);
         return d >= start && d <= end;
       });
+
     } else {
-      this.filteredBillList = [...this.billList];
+      this.filteredBillList = this.billList.filter(b => b.status === 2);
     }
 
     this.recomputeKPI();
     this.updateComboChart();
   }
 
-  // ====== KPI ======
   private recomputeKPI(): void {
-    this.totalOrders = this.filteredBillList.length;
-    this.totalRevenue = this.filteredBillList.reduce((s, b) => s + (b.totalMoney || 0), 0);
+    this.totalOrders = this.billList.length;
+    this.completedOrders = this.filteredBillList.length;
+    this.totalRevenue = this.filteredBillList.reduce(
+      (sum, b) => sum + (b.totalMoney || 0),
+      0
+    );
   }
 
-  // ====== Init charts rỗng ======
   private initEmptyCharts(): void {
-    // Combo chart
     this.comboChart?.destroy();
     this.comboChart = new Chart(this.comboChartRef.nativeElement, {
       type: 'bar',
@@ -155,7 +149,6 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    // Pie chart
     this.typePieChart?.destroy();
     this.typePieChart = new Chart(this.typePieChartRef.nativeElement, {
       type: 'pie',
@@ -168,11 +161,8 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  // ====== Update dữ liệu cho combo chart ======
   private updateComboChart(): void {
     if (!this.comboChart) return;
-
-    // gom theo ngày dùng định dạng yyyy-MM-dd để sort chính xác
     const map: Record<string, { orders: number; revenue: number }> = {};
     for (const b of this.filteredBillList) {
       const d = new Date(b.dateFounded);
@@ -187,12 +177,11 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
     const revenue = labels.map(k => map[k].revenue);
 
     this.comboChart.data.labels = labels;
-    (this.comboChart.data.datasets[0].data as number[]) = revenue; // bar
-    (this.comboChart.data.datasets[1].data as number[]) = orders;  // line
+    (this.comboChart.data.datasets[0].data as number[]) = revenue;
+    (this.comboChart.data.datasets[1].data as number[]) = orders;
     this.comboChart.update();
   }
 
-  // ====== Update dữ liệu cho pie chart ======
   private updateTypePieChart(): void {
     if (!this.typePieChart) return;
 
@@ -207,7 +196,6 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.typePieChart.data.labels = labels;
     (this.typePieChart.data.datasets[0].data as number[]) = data;
-    // màu sắc tùy chọn
     (this.typePieChart.data.datasets[0] as any).backgroundColor = [
       '#FF6384','#36A2EB','#FFCE56','#4BC0C0','#9966FF','#FF9F40','#C9CBCF'
     ];

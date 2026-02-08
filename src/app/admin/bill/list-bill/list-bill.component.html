@@ -36,6 +36,7 @@
             <td>{{ p.dateFounded | date:'HH:mm:ss dd/MM/yyyy' }}</td>
             <td>{{ p.paymentMethods }}</td>
             <td>
+              <span *ngIf="p.status===0" class="status-pill status-cancel">Đơn đã huỷ</span>
               <span *ngIf="p.status===1" class="status-pill status-wait">Chờ duyệt</span>
               <span *ngIf="p.status===2" class="status-pill status-success">Thành công</span>
             </td>

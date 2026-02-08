@@ -46,17 +46,18 @@
           <span class="status success" *ngIf="b.status === 2">
             Thành công
           </span>
+          <span class="status cancel" *ngIf="b.status === 0">
+            Đã huỷ
+          </span>
         </span>
       </div>
 
     </div>
 
     <div class="order-actions">
-      <button class="btn btn-warning btn-sm" (click)="xem(b.idBill)">
-        Xem chi tiết
-      </button>
+      <button class="btn btn-warning btn-sm" (click)="xem(b.idBill)">Xem chi tiết</button>
+      <button style="margin-left: 10px;" *ngIf="b.status === 1" class="btn btn-danger btn-sm" (click)="cancel(b.idBill)">Huỷ đơn</button>
     </div>
-
   </div>
 </div>
 

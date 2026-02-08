@@ -9,12 +9,24 @@
 
       <div class="row-item">
         <span>Hãng</span>
-        <b>{{ product.nameType }}</b>
+        <b>{{ product.idPromotion }}</b>
       </div>
 
       <div class="row-item">
         <span>Giá</span>
-        <b class="price">{{ numToString(product.price) }}<sup>đ</sup></b>
+        <div *ngIf="hasDiscount(product); else normalPrice" class="price-box">
+          <span class="price-origin">
+            {{ numToString(product.price) }} ₫
+          </span>
+          <b class="price-sale">
+            {{ numToString(getGiagiam(product)) }}<sup>đ</sup>
+          </b>
+        </div>
+        <ng-template #normalPrice>
+          <b class="price-normal">
+            {{ numToString(product.price) }}<sup>đ</sup>
+          </b>
+        </ng-template>
       </div>
 
       <div class="row-item">

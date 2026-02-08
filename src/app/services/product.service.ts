@@ -70,5 +70,5 @@ export class ProductService {
   getProductWithPromotion(id: number): Observable<any> {
     return this.http.get<any>(`${this.API}/${id}`);
   }
-  
+
 }

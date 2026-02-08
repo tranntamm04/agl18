@@ -7,6 +7,7 @@ import { LoginService } from '../../services/login.service';
 import { XemchitietComponent } from '../xemchitiet/xemchitiet.component';
 import { CustomerService } from '../../services/customer.service';
 import { RouterLink } from '@angular/router';
+import { CancelBillComponent } from '../../admin/bill/cancel-bill/cancel-bill.component';
 
 
 @Component({
@@ -52,6 +53,16 @@ export class CustomerBillComponent implements OnInit {
 
   numToString(num: number): string {
     return num.toLocaleString('vi-VN');
+  }
+
+  cancel(id: number) {
+    const dialog = this.dialog.open(CancelBillComponent, {
+      width: '500px',
+      data: {id: id}
+    });
+    dialog.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
 }

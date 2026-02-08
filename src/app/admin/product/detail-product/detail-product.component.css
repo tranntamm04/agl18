@@ -147,3 +147,18 @@
 .thumbnail-list img.active {
   border-color: #ff5722;
 }
+.price-origin {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 8px;
+}
+
+.price-sale {
+  color: #e53935;
+  font-size: 18px;
+}
+
+.price-normal {
+  color: #222;
+  font-size: 18px;
+}

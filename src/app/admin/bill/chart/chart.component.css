@@ -1,55 +1,28 @@
-/* layout */
-.container{position:relative;padding:20px;background:#f5f6fa;min-height:100vh}
-.page-title{margin:0 0 12px}
+.container{min-height:100vh;padding:16px;background:#f4f6fb;font-family:system-ui}
+.page-title{margin:0 0 16px;font-size:22px;font-weight:700;color:#111827}
 
-/* nút in góc phải */
-.print-btn{
-  position:absolute;right:0;top:0;
-  padding:8px 12px;border:0;border-radius:8px;
-  background:#1f6feb;color:#fff;cursor:pointer
-}
+.stats-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:16px}
+.stat-card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.stat-card h4{margin:0 0 6px;font-size:14px;color:#6b7280;font-weight:500}
+.stat-card p{margin:0;font-size:22px;font-weight:700;color:#111827}
 
-/* KPI */
-.stats-container{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0}
-.stat-card{
-  flex:1 1 260px;background:linear-gradient(135deg,#8e7ca1,#2575fc);color:#fff;
-  padding:16px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.1)
-}
-.stat-card h4{margin:0 0 6px}
-.stat-card p{margin:0;font-weight:700;font-size:22px}
+.filter-container{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.filter-container label{display:flex;gap:6px;align-items:center;font-size:14px;color:#374151}
+.filter-container input{height:36px;padding:0 10px;border-radius:8px;border:1px solid #e5e7eb}
+.filter-container button{height:36px;padding:0 16px;border-radius:8px;border:0;background:#2563eb;color:#fff;font-weight:500;cursor:pointer}
 
-/* lọc */
-.filter-container{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:12px 0}
-.filter-container input[type="date"],.filter-container button{
-  height:36px;padding:0 10px;border-radius:8px;border:1px solid #e2e8f0;background:#fff
-}
-.filter-container button{background:#111827;color:#fff;border:0;cursor:pointer}
-
-/* bảng đơn hàng */
-.orders-card{margin-top:12px;background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:12px}
-.orders-title{font-weight:700;margin:0 0 8px 0}
+.orders-card{background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:12px;margin-bottom:16px}
+.orders-title{font-weight:600;margin-bottom:8px;color:#111827}
 .orders-table{width:100%;border-collapse:collapse;font-size:14px}
-.orders-table thead th{
-  text-align:left;background:#f1f5f9;color:#111827;padding:10px;border-bottom:1px solid #e5e7eb
-}
-.orders-table tbody td{padding:10px;border-bottom:1px solid #eef2f7}
-.orders-table tbody tr:hover{background:#f9fafb}
-.orders-table .empty{text-align:center;color:#6b7280}
+.orders-table th{text-align:left;padding:10px;background:#f1f5f9;border-bottom:1px solid #e5e7eb}
+.orders-table td{padding:10px;border-bottom:1px solid #eef2f7}
+.orders-table tr:hover{background:#f9fafb}
+.empty{text-align:center;color:#6b7280}
 
-/* biểu đồ */
 .chart-container{display:grid;grid-template-columns:1fr;gap:16px}
-.chart-card{background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.08);padding:12px}
-.chart-title{font-weight:600;margin:0 0 8px}
-.chart-card canvas{width:100%!important;height:300px!important}
+.chart-card{background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:12px}
+.chart-title{font-weight:600;margin-bottom:8px;color:#111827}
+.chart-card canvas{width:100%!important;height:280px!important}
 
-/* in: chỉ in bảng trong #print-area */
-@media print{
-  .no-print,.print-btn{display:none!important}
-  body *{visibility:hidden}
-  #print-area,#print-area *{visibility:visible}
-  #print-area{position:absolute;left:0;top:0;width:100%}
-  canvas{display:none!important}
-}
-
-/* responsive */
-@media(min-width:992px){.chart-container{grid-template-columns:1fr 1fr}}
+@media(min-width:768px){.chart-container{grid-template-columns:1fr 1fr}}
+@media print{.no-print{display:none}canvas{display:none}}

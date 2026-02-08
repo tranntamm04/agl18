@@ -9,8 +9,8 @@ import { ProductService } from '../../services/product.service';
   selector: 'app-all-product',
   standalone: true,
   imports: [
-    CommonModule,     // ❗❗❗ BẮT BUỘC
-    RouterLink        // ❗❗❗ BẮT BUỘC
+    CommonModule,
+    RouterLink
   ],
   templateUrl: './all-product.component.html',
   styleUrls: ['./all-product.component.css']
@@ -29,8 +29,6 @@ export class AllProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('Tất cả sản phẩm');
-
-    // ✅ GIỐNG HOMEPAGE 100%
     this.productService.getAllProductHome().subscribe(data => {
       this.productList = data.content;
       console.log('ALL PRODUCT:', this.productList);

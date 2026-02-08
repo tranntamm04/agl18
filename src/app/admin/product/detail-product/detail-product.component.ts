@@ -31,7 +31,6 @@ export class DetailProductComponent implements OnInit {
       next: data => {
         this.product = data;
         this.parseDescription();
-        // LẤY ẢNH ĐẦU TIÊN LÀM ẢNH LỚN
         const images = this.getImages(this.product.avt);
         this.selectedImage = images[0];
       },
@@ -73,5 +72,21 @@ export class DetailProductComponent implements OnInit {
 
   selectImage(img: string) {
     this.selectedImage = img;
+  }
+
+  hasDiscount(p: any): boolean {
+    return !!p?.promotion && p.promotion.promotionalValue > 0;
+  }
+
+  getGiagiam(p: any): number {
+    if (!p.promotion) return p.price;
+    const promo = p.promotion;
+    if (promo.typePromotion === 'PERCENT') {
+      return Math.round(p.price * (1 - promo.promotionalValue / 100) - 1000);
+    }
+    if (promo.typePromotion === 'MONEY') {
+      return Math.max(p.price - promo.promotionalValue, 0);
+    }
+    return p.price;
   }
 }

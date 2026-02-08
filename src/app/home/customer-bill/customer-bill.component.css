@@ -71,6 +71,10 @@
   font-size: 12px;
   font-weight: 600;
 }
+.status.cancel {
+  color: #dc3545;
+  background: #e4cdc9;
+}
 
 .processing {
   background: #fff3cd;
@@ -86,6 +90,7 @@
 .order-actions {
   margin-top: 14px;
   text-align: right;
+  
 }
 
 .btn-detail {
@@ -97,10 +102,6 @@
   font-size: 13px;
   cursor: pointer;
   transition: 0.2s;
-}
-
-.btn-detail:hover {
-  background: #f57c00;
 }
 
 /* EMPTY */

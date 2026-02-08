@@ -14,7 +14,7 @@
 .status-pill { display:inline-block; padding:6px 14px; border-radius:20px; font-size:.85rem; font-weight:500; white-space:nowrap; }
 .status-wait { background:#fff3cd; color:#664d03; }
 .status-success { background:#d1e7dd; color:#0f5132; }
-
+.status-cancel { background:#f8e6e3; color:#ff0000; }
 @media (max-width:768px) {
 .card { padding:15px; }
 .page-title { font-size:1.4rem; }

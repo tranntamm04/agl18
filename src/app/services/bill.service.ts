@@ -50,4 +50,16 @@ export class BillService {
   getSearchByName(name:string,page:number):Observable<any>{
     return this.http.get<any>(this.API+'/searchByName?name='+name+'&page=' +page,this.httpOptions)
   }
+
+  cancelBill(idBill: number): Observable<any> {
+    return this.http.put(`${this.API}/cancel/${idBill}`, {});
+  }
+
+  filterByStatus(status: number = 1, page: number = 0): Observable<any> {
+    return this.http.get<any>(`${this.API}/filter?status=${status}&page=${page}`, this.httpOptions);
+  }
+
+  getTotalRevenue(): Observable<number> {
+    return this.http.get<number>(`${this.API}/revenue`,{ headers: this.httpOptions.headers});
+  }
 }
